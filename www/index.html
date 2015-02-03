@@ -7,7 +7,34 @@
 
         <link rel="stylesheet"  href="libs/jQM-flat/jquery.mobile.flatui.css">
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+<!--contacts -->
+         <script type="text/javascript" charset="utf-8">
+            document.addEventListener("deviceready", onDeviceReady, false);
+            function onDeviceReady() {
+                var options = new ContactFindOptions();
+                options.filter = "";
+                var fields = ["displayName", "name"];
+                navigator.contacts.find(fields, onSuccess, onError, options);
+            }
+            function onSuccess(contacts) {
+				var names=[];
+                for (var i = 0; i < contacts.length; i++) {
+				names.push(contacts[i].displayName);
+				}
+var output = [];
 
+$.each(names, function(key, value)
+{
+  output.push('<option value="'+ key +'">'+ value +'</option>');
+});
+
+$('#contactList1').html(output.join(''));
+			}
+            function onError(contactError) {
+                alert('onError!');
+            }
+        </script>
+        <!--contacts-end-->
         <title>WoSApp</title>
     </head>
     <body>
@@ -52,6 +79,12 @@
 
                         <button type="submit" data-theme="f" data-mini="false" class="ui-btn-hidden" aria-disabled="false">Search</button>
                     </form>
+                    <!--contact add-->
+<select id="contactList1">
+
+</select>
+<input type="button" value="Add Contact" onClick="addEmergency()" />
+<!--conact add end-->
                 </div>
                 
             </div>
